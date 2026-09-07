@@ -1,0 +1,23 @@
+### Java & Maven ###
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Logs & Crash Dumps
+*.log
+
+### IntelliJ IDEA ###
+# Ignore the entire IDE configuration folder
+.idea/
+*.iws
+*.iml
+*.ipr 
+out/
+
+# Temporary backup files
+**/*~
