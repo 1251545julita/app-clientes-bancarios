@@ -129,17 +129,17 @@ public class Main {
                 // Caso 1: Beneficio existente
                 String busqueda1 = "Acceso a VIP en aeropuertos";
                 System.out.println("  Tiene '" + busqueda1 + "' ?: " + (preferencial.tieneBeneficio(busqueda1)? "ACTIVO" : "INACTIVO"));
-                // Resultado esperado: true
+                // Resultado esperado: ACTIVO
 
                 // Caso 2: Beneficio existente con deferencia de escritura
-                String busqueda2 = "atencion 24/7";
+                String busqueda2 = "atención 24/7";
                 System.out.println("  Tiene '" + busqueda2 + "' ?: " + (preferencial.tieneBeneficio(busqueda2)? "ACTIVO" : "INACTIVO"));
-                // Resultado esperado: true (gracias a equalsIgnoreCase)
+                // Resultado esperado: ACTIVO
 
                 // Caso 3: Beneficio que NO existe
                 String busqueda3 = "Tasa 0% en Préstamos";
                 System.out.println("  Tiene '" + busqueda3 + "' ?: " + (preferencial.tieneBeneficio(busqueda3)? "ACTIVO" : "INACTIVO"));
-                // Resultado esperado: false
+                // Resultado esperado: INACTIVO
             }
 
             // Imprime el resultado de los métodos abstractos que cada clase hija implementó de forma distinta
