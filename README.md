@@ -1,4 +1,4 @@
-# Application — Bank Customers — Herencia y  Modelado de Clases
+# Application — Clientes Bancarios — Herencia y  Modelado de Clases
 
 ** Diplomatura en Desarrollo de Software FinTech: IA y Microservicios — UTN / Codeki**
 ** Student: Julita, Jesica R. **
