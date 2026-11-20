@@ -1,8 +1,10 @@
 package ar.edu.utn.diplomatura.clientesbancarios.cliente;
 
 
+import ar.edu.utn.diplomatura.clientesbancarios.Constants;
+
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Clase concreta que hereda de la clase abstracta Cliente.
@@ -10,20 +12,20 @@ import java.util.Date;
 public class PersonaFisica extends Cliente {
 
     // Atributos específicos
-    private final String apellido;
-    private final String dni; // Hay documentos de identidad de personas extranjeras que son alfanumericas.
-    private final Date fechaDeNacimiento;
-    private final String profesion;
-    private final BigDecimal ingresosDeclarados;
-    private final String estadoCivil; // Para análisis de riesgo al solicitar préstamos hipotecarios (Soltero, Casado, Divorciado).
-    private final String nacionalidad;
-    private final String situacionLaboral; // Si es empleado en relación de dependencia, monotributista, o jubilado.
+    private String apellido;
+    private String dni; // Hay documentos de identidad de personas extranjeras que son alfanumericas.
+    private LocalDate fechaDeNacimiento;
+    private String profesion;
+    private BigDecimal ingresosDeclarados;
+    private String estadoCivil; // Para análisis de riesgo al solicitar préstamos hipotecarios (Soltero, Casado, Divorciado).
+    private String nacionalidad;
+    private String situacionLaboral; // Si es empleado en relación de dependencia, monotributista, o jubilado.
 
     // Constructor
-    public PersonaFisica(String id, String nombre, String domicilio, String telefono, String correoElectronico, Date fechaDeAlta, Boolean activo, String sucursal, String apellido, String dni, Date fechaDeNacimiento, String profesion, BigDecimal ingresosDeclarados, String estadoCivil, String nacionalidad, String situacionLaboral) {
-        super(id, nombre, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
+    public PersonaFisica(String nombre, String numeroDni, String domicilio, String telefono, String correoElectronico, LocalDate fechaDeAlta, Boolean activo, String sucursal, String apellido, LocalDate fechaDeNacimiento, String profesion, BigDecimal ingresosDeclarados, String estadoCivil, String nacionalidad, String situacionLaboral) {
+        super(nombre, Constants.TIPO_DOCUMENTO_DNI, numeroDni, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
         this.apellido = apellido;
-        this.dni = dni;
+        this.dni = numeroDni;
         this.fechaDeNacimiento = fechaDeNacimiento;
         this.profesion = profesion;
         this.ingresosDeclarados = ingresosDeclarados;
@@ -34,20 +36,23 @@ public class PersonaFisica extends Cliente {
 
     // Getters
     public String getApellido() { return apellido; }
-
     public String getDni() { return dni; }
-
-    public Date getFechaDeNacimiento() { return fechaDeNacimiento; }
-
+    public LocalDate getFechaDeNacimiento() { return fechaDeNacimiento; }
     public String getProfesion() { return profesion; }
-
     public BigDecimal getIngresosDeclarados() { return ingresosDeclarados; }
-
     public String getEstadoCivil() { return estadoCivil; }
-
     public String getNacionalidad() { return nacionalidad; }
-
     public String getSituacionLaboral() { return situacionLaboral; }
+
+    // Setters
+    public void setApellido(String apellido) { this.apellido = apellido; }
+    public void setDni(String dni) { this.dni = dni; }
+    public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
+    public void setProfesion(String profesion) { this.profesion = profesion; }
+    public void setIngresosDeclarados(BigDecimal ingresosDeclarados) { this.ingresosDeclarados = ingresosDeclarados; }
+    public void setEstadoCivil(String estadoCivil) { this.estadoCivil = estadoCivil; }
+    public void setNacionalidad(String nacionalidad) { this.nacionalidad = nacionalidad; }
+    public void setSituacionLaboral(String situacionLaboral) { this.situacionLaboral = situacionLaboral; }
 
     // Implementación obligatoria de métodos (Sobreescritura)
     @Override

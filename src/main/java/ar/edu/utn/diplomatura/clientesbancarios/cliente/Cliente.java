@@ -1,8 +1,10 @@
 package ar.edu.utn.diplomatura.clientesbancarios.cliente;
 
+import ar.edu.utn.diplomatura.clientesbancarios.Constants;
+
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 /**
@@ -11,19 +13,23 @@ import java.util.UUID;
 public abstract class Cliente {
 
     private final String id;
-    private final String nombre;
-    private final String domicilio;
-    private final String telefono;
-    private final String correoElectronico;
-    private final Date fechaDeAlta;
-    private final Boolean activo;
-    private final String sucursal;
+    private String nombre;
+    private String tipoDocumento;
+    private String numeroDocumento;
+    private String domicilio;
+    private String telefono;
+    private String correoElectronico;
+    private LocalDate fechaDeAlta;
+    private Boolean activo;
+    private String sucursal;
 
     // Constructor
-    protected Cliente(String id, String nombre, String domicilio, String telefono, String correoElectronico, Date fechaDeAlta, Boolean activo, String sucursal) {
+    protected Cliente(String nombre, String tipoDocumento, String numeroDocumento, String domicilio, String telefono, String correoElectronico, LocalDate fechaDeAlta, Boolean activo, String sucursal) {
 
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
+        this.tipoDocumento = tipoDocumento;
+        this.numeroDocumento = numeroDocumento;
         this.domicilio = domicilio;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
@@ -55,6 +61,8 @@ public abstract class Cliente {
     public String getNombre() {
         return this.nombre;
     }
+    public String getTipoDocumento() { return tipoDocumento; }
+    public String getNumeroDocumento() { return numeroDocumento; }
     public String getDomicilio() {
         return this.domicilio;
     }
@@ -62,27 +70,41 @@ public abstract class Cliente {
         return this.telefono;
     }
     public String getCorreoElectronico() { return this.correoElectronico; }
-    public Date getFechaDeAlta() { return this.fechaDeAlta; }
+    public LocalDate getFechaDeAlta() { return this.fechaDeAlta; }
     public Boolean getActivo() { return activo; }
     public String getSucursal() { return sucursal; }
 
-    SimpleDateFormat formatoFechaNormalizada = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    // Setters
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setTipoDocumento(String tipoDocumento) { this.tipoDocumento = tipoDocumento; }
+    public void setNumeroDocumento(String nunmeroDocumento) { this.numeroDocumento = nunmeroDocumento; }
+    public void setDomicilio(String domicilio) { this.domicilio = domicilio; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
+    public void setFechaDeAlta(LocalDate fechaDeAlta) { this.fechaDeAlta = fechaDeAlta; }
+    public void setActivo(Boolean activo) { this.activo = activo; }
+    public void setSucursal(String sucursal) { this.sucursal = sucursal; }
+
+    private DateTimeFormatter formatoFechaNormalizada = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
 
     // Métodos concretos de la Clase Padre
     public String presentarse() {
         return "\n  - Cliente ID " + this.id +
                "\n  - Nombre: " + this.nombre +
+               "\n  - Tipo Documento: " + this.tipoDocumento +
+               "\n  - Número Documento: " + this.numeroDocumento +
                "\n  - Domicilio: " + this.domicilio +
                "\n  - Telefono: " + this.telefono +
                "\n  - Correo Electrónico: " + this.correoElectronico +
-               "\n  - Fecha de Alta: " + formatoFechaNormalizada.format(this.fechaDeAlta) +
+               "\n  - Fecha de Alta: " + this.fechaDeAlta.format(formatoFechaNormalizada) +
                "\n  - Estado: " + (this.activo ? "ACTIVO" : "INACTIVO") +
                "\n  - Sucursal: " + this.sucursal;
     }
 
     public boolean esClienteAntiguo() {
         if (this.fechaDeAlta == null) return false;
-        long unAnioEnMilisegundos = 365L * 24 * 60 * 60 * 1000;
-        return (new Date().getTime() - this.fechaDeAlta.getTime()) >= unAnioEnMilisegundos;
+
+        LocalDate haceUnAnio = LocalDate.now().minusYears(1);
+        return !this.fechaDeAlta.isAfter(haceUnAnio);
     }
 }

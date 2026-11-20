@@ -6,9 +6,9 @@ import ar.edu.utn.diplomatura.clientesbancarios.cliente.PersonaJuridica;
 import ar.edu.utn.diplomatura.clientesbancarios.cliente.Preferencial;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,12 +24,12 @@ public class Main {
     private static void demoClientesBancarios() {
         titulo("Herencia y Modelado de Datos - Clientes bancarios");
 
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaAhora = new Date();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
+        LocalDate fechaAhora = LocalDate.now();
 
         Cliente cliente1 = new PersonaFisica(
-                null, // null porque Cliente.java genera un UUID automáticamente
                 "Juan",
+                "30123456",
                 "Calle 123, CABA",
                 "11-5555-4444",
                 "juan.perez@email.com",
@@ -37,8 +37,7 @@ public class Main {
                 true,
                 "Sucursal 045 - Belgrano",
                 "Perez",
-                "30123456",
-                new Date(90, 5, 15),
+                LocalDate.of(1990, 6, 15),
                 "Ingeniero en Sistemas",
                 new BigDecimal("750000.5024"),
                 "Soltero",
@@ -47,8 +46,8 @@ public class Main {
         );
 
         Cliente cliente2 = new PersonaJuridica(
-                null,
                 "DG Solutions SA",
+                "30-12345678-9",
                 "Av. Corrientes 456, CABA",
                 "11-4444-5555",
                 "contacto@dgsolutions.com",
@@ -56,18 +55,18 @@ public class Main {
                 true,
                 "Sucursal 110 - Centro Corporativo",
                 "DG Solutions Sociedad Anónima",
-                "30-12345678-9",
                 "Desarrollo de Software",
                 "Marta González",
                 "Responsable Inscripto",
-                new Date(117, 3, 20),
+                LocalDate.of(2017, 4, 20),
                 new BigDecimal("45000000.008")
         );
 
         List<String> beneficios = Arrays.asList("Acceso a VIP en aeropuertos", "Atención 24/7", "Cero comisiones de mantenimiento");
         Cliente cliente3 = new Preferencial(
-                null,
                 "Laura",
+                "dni",
+                "36852753",
                 "Av. del Libertador 474, CABA",
                 "11-3333-2222",
                 "laura.vip@email.com",
@@ -77,7 +76,7 @@ public class Main {
                 new BigDecimal("5000000.0064"),
                 98765L,
                 beneficios,
-                new Date(97, 0, 22),
+                LocalDate.of(1997, 1, 22),
                 true
         );
 
@@ -98,8 +97,7 @@ public class Main {
             if (cliente instanceof PersonaFisica personaFisica) {
 
                 System.out.println("  - Apellido: " + personaFisica.getApellido());
-                System.out.println("  - DNI: " + personaFisica.getDni());
-                System.out.println("  - Fecha de nacimiento: " + formatoFecha.format(personaFisica.getFechaDeNacimiento()));
+                System.out.println("  - Fecha de nacimiento: " + personaFisica.getFechaDeNacimiento().format(formatoFecha));
                 System.out.println("  - Profesión: " + personaFisica.getProfesion());
                 System.out.println("  - Ingresos declarados: $" + fmt(personaFisica.getIngresosDeclarados()));
                 System.out.println("  - Estado Civil: " + personaFisica.getEstadoCivil());
@@ -109,10 +107,9 @@ public class Main {
             } else if (cliente instanceof PersonaJuridica personaJuridica) {
 
                 System.out.println("  - Razón Social: " + personaJuridica.getRazonSocial());
-                System.out.println("  - CUIT: " + personaJuridica.getCuil());
                 System.out.println("  - Rubro: " + personaJuridica.getRubro());
                 System.out.println("  - Representante legal: " + personaJuridica.getRepresentanteLegal());
-                System.out.println("  - Fecha de Constitución: " + formatoFecha.format(personaJuridica.getFechaConstitucion()));
+                System.out.println("  - Fecha de Constitución: " + personaJuridica.getFechaConstitucion().format(formatoFecha));
                 System.out.println("  - Facturación Anual: $" + fmt(personaJuridica.getFacturacionAnual()));
                 System.out.println("  - Categoría de la Empresa: " + personaJuridica.categorizarEmpresa());
 
@@ -121,7 +118,7 @@ public class Main {
                 System.out.println("  - Límite de crédito especial: $" + fmt(preferencial.getLimiteDeCreditoEspecial()));
                 System.out.println("  - ID de Ejecutivo de Cuenta: " + preferencial.getEjecutivoDeCuentaAsignado());
                 System.out.println("  - Beneficios adicionales: "  + String.join(" | ", preferencial.getBeneficiosAdicionales()));
-                System.out.println("  - Fecha de Ingreso VIP: " + formatoFecha.format(preferencial.getFechaIngresoSegmento()));
+                System.out.println("  - Fecha de Ingreso VIP: " + preferencial.getFechaIngresoSegmento().format(formatoFecha));
                 System.out.println("  - Comisiones bonificadas: " + (preferencial.isTieneComisionesBonificadas() ? "ACTIVO" : "INACTIVO"));
 
                 System.out.println("=== PRUEBAS DE BENEFICIOS VIP ===");

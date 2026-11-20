@@ -1,7 +1,9 @@
 package ar.edu.utn.diplomatura.clientesbancarios.cliente;
 
+import ar.edu.utn.diplomatura.clientesbancarios.Constants;
+
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Segunda subclase del mismo padre abstracto denominado Cliente.
@@ -9,19 +11,19 @@ import java.util.Date;
 public class PersonaJuridica extends Cliente {
 
     // Atributos específicos
-    private final String razonSocial;
-    private final String cuil;
-    private final String rubro;
-    private final String representanteLegal;
-    private final String condicionIva; // Para la facturación de comisiones e impuestos bancarios (Responsable Inscripto, Exento, etc.).
-    private final Date fechaConstitucion; // Para habilitar líneas de crédito corporativas según la antigüedad de la empresa.
-    private final BigDecimal facturacionAnual; // Para categorizar a la empresa como PyME, Mediana o Corporativa.
+    private String razonSocial;
+    private String cuit;
+    private String rubro;
+    private String representanteLegal;
+    private String condicionIva; // Para la facturación de comisiones e impuestos bancarios (Responsable Inscripto, Exento, etc.).
+    private LocalDate fechaConstitucion; // Para habilitar líneas de crédito corporativas según la antigüedad de la empresa.
+    private BigDecimal facturacionAnual; // Para categorizar a la empresa como PyME, Mediana o Corporativa.
 
     // Constructor
-    public PersonaJuridica(String id, String nombre, String domicilio, String telefono, String correoElectronico, Date fechaDeAlta, Boolean activo, String sucursal, String razonSocial, String cuil, String rubro, String representanteLegal, String condicionIva, Date fechaConstitucion, BigDecimal facturacionAnual) {
-        super(id, nombre, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
+    public PersonaJuridica(String nombre, String numeroCuit, String domicilio, String telefono, String correoElectronico, LocalDate fechaDeAlta, Boolean activo, String sucursal, String razonSocial, String rubro, String representanteLegal, String condicionIva, LocalDate fechaConstitucion, BigDecimal facturacionAnual) {
+        super(nombre, Constants.TIPO_DOCUMENTO_CUIL, numeroCuit, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
         this.razonSocial = razonSocial;
-        this.cuil = cuil;
+        this.cuit = numeroCuit;
         this.rubro = rubro;
         this.representanteLegal = representanteLegal;
         this.condicionIva = condicionIva;
@@ -31,18 +33,21 @@ public class PersonaJuridica extends Cliente {
 
     // Getters
     public String getRazonSocial() { return razonSocial;}
-
-    public String getCuil() { return cuil; }
-
+    public String getCuit() { return cuit; }
     public String getRubro() { return rubro; }
-
     public String getRepresentanteLegal() { return representanteLegal; }
-
     public String getCondicionIva() { return condicionIva; }
-
-    public Date getFechaConstitucion() { return fechaConstitucion; }
-
+    public LocalDate getFechaConstitucion() { return fechaConstitucion; }
     public BigDecimal getFacturacionAnual() { return facturacionAnual; }
+
+    // Setters
+    public void setRazonSocial(String razonSocial) { this.razonSocial = razonSocial; }
+    public void setCuit(String cuit) { this.cuit = cuit; }
+    public void setRubro(String rubro) { this.rubro = rubro; }
+    public void setRepresentanteLegal(String representanteLegal) { this.representanteLegal = representanteLegal; }
+    public void setCondicionIva(String condicionIva) { this.condicionIva = condicionIva; }
+    public void setFechaConstitucion(LocalDate fechaConstitucion) { this.fechaConstitucion = fechaConstitucion; }
+    public void setFacturacionAnual(BigDecimal facturacionAnual) { this.facturacionAnual = facturacionAnual; }
 
     // Método de la subclase
     public String categorizarEmpresa() {

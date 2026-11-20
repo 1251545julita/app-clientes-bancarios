@@ -1,7 +1,7 @@
 package ar.edu.utn.diplomatura.clientesbancarios.cliente;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -10,15 +10,15 @@ import java.util.List;
 public class Preferencial extends Cliente {
 
     // Atributos específicos
-    private final BigDecimal limiteDeCreditoEspecial;
-    private final Long ejecutivoDeCuentaAsignado;
-    private final List<String> beneficiosAdicionales;
-    private final Date fechaIngresoSegmento; // Para calcular la antigüedad en el segmento VIP y otorgar premios por fidelidad.
-    private final boolean tieneComisionesBonificadas; // Si el cliente tiene exención total o un porcentaje de descuento en costos de mantenimiento.
+    private BigDecimal limiteDeCreditoEspecial;
+    private Long ejecutivoDeCuentaAsignado;
+    private List<String> beneficiosAdicionales;
+    private LocalDate fechaIngresoSegmento; // Para calcular la antigüedad en el segmento VIP y otorgar premios por fidelidad.
+    private boolean tieneComisionesBonificadas; // Si el cliente tiene exención total o un porcentaje de descuento en costos de mantenimiento.
 
     // Constructor
-    public Preferencial(String id, String nombre, String domicilio, String telefono, String correoElectronico, Date fechaDeAlta, Boolean activo, String sucursal, BigDecimal limiteDeCreditoEspecial, Long ejecutivoDeCuentaAsignado, List<String> beneficiosAdicionales, Date fechaIngresoSegmento, boolean tieneComisionesBonificadas) {
-        super(id, nombre, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
+    public Preferencial(String nombre, String tipoDocumento, String numeroDocumento, String domicilio, String telefono, String correoElectronico, LocalDate fechaDeAlta, Boolean activo, String sucursal, BigDecimal limiteDeCreditoEspecial, Long ejecutivoDeCuentaAsignado, List<String> beneficiosAdicionales, LocalDate fechaIngresoSegmento, boolean tieneComisionesBonificadas) {
+        super(nombre, tipoDocumento, numeroDocumento, domicilio, telefono, correoElectronico, fechaDeAlta, activo, sucursal);
         this.limiteDeCreditoEspecial = limiteDeCreditoEspecial;
         this.ejecutivoDeCuentaAsignado = ejecutivoDeCuentaAsignado;
         this.beneficiosAdicionales = beneficiosAdicionales;
@@ -28,14 +28,17 @@ public class Preferencial extends Cliente {
 
     // Getters
     public BigDecimal getLimiteDeCreditoEspecial() { return limiteDeCreditoEspecial; }
-
     public Long getEjecutivoDeCuentaAsignado() { return ejecutivoDeCuentaAsignado; }
-
     public List<String> getBeneficiosAdicionales() { return beneficiosAdicionales; }
-
-    public Date getFechaIngresoSegmento() { return fechaIngresoSegmento; }
-
+    public LocalDate getFechaIngresoSegmento() { return fechaIngresoSegmento; }
     public boolean isTieneComisionesBonificadas() { return tieneComisionesBonificadas; }
+
+    // Setters
+    public void setLimiteDeCreditoEspecial(BigDecimal limiteDeCreditoEspecial) { this.limiteDeCreditoEspecial = limiteDeCreditoEspecial; }
+    public void setEjecutivoDeCuentaAsignado(Long ejecutivoDeCuentaAsignado) { this.ejecutivoDeCuentaAsignado = ejecutivoDeCuentaAsignado; }
+    public void setBeneficiosAdicionales(List<String> beneficiosAdicionales) { this.beneficiosAdicionales = beneficiosAdicionales; }
+    public void setFechaIngresoSegmento(LocalDate fechaIngresoSegmento) { this.fechaIngresoSegmento = fechaIngresoSegmento; }
+    public void setTieneComisionesBonificadas(boolean tieneComisionesBonificadas) { this.tieneComisionesBonificadas = tieneComisionesBonificadas; }
 
     // Método particular de la subclase
     // Para Verificar si posee un beneficio en particular
